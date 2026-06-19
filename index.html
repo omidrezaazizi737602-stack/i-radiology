@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آی رادیولوژی | پلتفرم یکپارچه کلینیک‌های رادیولوژی ایران</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Yekan';
+  src: url('https://cdn.jsdelivr.net/npm/font-yekan@1.0.0/dist/Yekan.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/rastikerdar/yekan-webfont@v6.0.0/dist/Yekan.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/rastikerdar/yekan-webfont@v6.0.0/dist/Yekan.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Yekan';
+  src: url('https://cdn.jsdelivr.net/npm/font-yekan@1.0.0/dist/YekanBold.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/rastikerdar/yekan-webfont@v6.0.0/dist/YekanBold.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/rastikerdar/yekan-webfont@v6.0.0/dist/YekanBold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root{
+  --brand:#308CF6;
+  --brand-dark:#1f6fd6;
+  --navy:#0B1E3D;
+  --navy-soft:#324567;
+  --tint:#EAF2FE;
+  --tint2:#F3F8FF;
+  --base:#FBFCFE;
+  --line:#E2E8F4;
+  --teal:#1FB6A8;
+  --teal-tint:#E4F7F4;
+  --amber:#F6A623;
+  --amber-tint:#FDF1DD;
+  --red:#E0533D;
+  --red-tint:#FBE7E3;
+  --shadow: 0 1px 2px rgba(11,30,61,0.04), 0 6px 24px rgba(11,30,61,0.06);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%;}
+body{
+  font-family:'Yekan','Vazirmatn','Tahoma',sans-serif;
+  background:var(--base);
+  color:var(--navy);
+  direction:rtl;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%; display:block;}
+button{font-family:inherit; cursor:pointer; border:none; background:none;}
+input,select,textarea{font-family:inherit;}
+a{color:inherit; text-decoration:none;}
+ul{list-style:none;}
+
+::selection{background:var(--tint); color:var(--brand-dark);}
+
+/* ---------- Layout shell ---------- */
+#app{min-height:100vh; display:flex; flex-direction:column;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+
+/* ---------- Topbar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  background:rgba(251,252,254,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  height:72px;
+}
+.logo{display:flex; align-items:center; gap:10px; font-weight:bold; font-size:19px; cursor:pointer;}
+.logo-mark{
+  width:36px; height:36px; border-radius:10px;
+  background:var(--brand);
+  position:relative; overflow:hidden;
+  flex-shrink:0;
+}
+.logo-mark::before{
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(180deg, rgba(255,255,255,0.0) 0px, rgba(255,255,255,0.0) 5px, rgba(255,255,255,0.35) 6px, rgba(255,255,255,0.0) 7px);
+}
+.logo-mark::after{
+  content:''; position:absolute; right:0; left:0; height:2px;
+  background:#fff; top:50%;
+  box-shadow:0 0 6px rgba(255,255,255,0.8);
+  animation: scanmove 2.8s ease-in-out infinite;
+}
+@keyframes scanmove{
+  0%{top:6px; opacity:0.2;} 50%{top:28px; opacity:1;} 100%{top:6px; opacity:0.2;}
+}
+.nav-links{display:flex; align-items:center; gap:36px;}
+.nav-links a{font-size:14.5px; color:var(--navy-soft); transition:color .15s; position:relative; padding:6px 0;}
+.nav-links a:hover{color:var(--brand);}
+.nav-links a.active{color:var(--brand); font-weight:bold;}
+.nav-actions{display:flex; align-items:center; gap:10px;}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:11px 22px; border-radius:11px; font-size:14.5px; font-weight:bold;
+  transition:all .15s; white-space:nowrap;
+}
+.btn-primary{background:var(--brand); color:#fff;}
+.btn-primary:hover{background:var(--brand-dark); transform:translateY(-1px); box-shadow:0 6px 16px rgba(48,140,246,0.3);}
+.btn-ghost{background:transparent; color:var(--navy); border:1px solid var(--line);}
+.btn-ghost:hover{border-color:var(--brand); color:var(--brand); background:var(--tint2);}
+.btn-sm{padding:8px 16px; font-size:13.5px; border-radius:9px;}
+.btn-block{width:100%;}
+.btn-soft{background:var(--tint); color:var(--brand-dark);}
+.btn-soft:hover{background:#dceaff;}
+
+.mobile-toggle{display:none; font-size:24px; color:var(--navy);}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;
+  padding:72px 0 96px;
+  background:linear-gradient(180deg, var(--tint2) 0%, var(--base) 100%);
+  overflow:hidden;
+}
+.hero::after{
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    repeating-linear-gradient(180deg, transparent 0, transparent 38px, rgba(48,140,246,0.05) 39px, transparent 40px);
+  pointer-events:none;
+}
+.hero-inner{position:relative; z-index:2; text-align:center;}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  background:#fff; border:1px solid var(--line);
+  padding:7px 16px; border-radius:99px; font-size:13px; color:var(--navy-soft);
+  margin-bottom:24px; box-shadow:var(--shadow);
+}
+.eyebrow .dot{width:7px; height:7px; border-radius:50%; background:var(--teal); animation:pulse 1.8s infinite;}
+@keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.35;}}
+.hero h1{
+  font-size:46px; line-height:1.32; font-weight:bold; color:var(--navy);
+  max-width:780px; margin:0 auto 18px;
+}
+.hero h1 span{color:var(--brand);}
+.hero p{
+  font-size:17px; color:var(--navy-soft); max-width:560px; margin:0 auto 40px; line-height:1.8;
+}
+
+/* Search card */
+.search-card{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg);
+  box-shadow:0 20px 50px rgba(11,30,61,0.10);
+  max-width:880px; margin:0 auto; padding:10px; position:relative;
+}
+.search-tabs{display:flex; gap:4px; padding:8px 8px 4px;}
+.search-tab{
+  padding:9px 18px; border-radius:9px; font-size:13.5px; color:var(--navy-soft); font-weight:bold;
+}
+.search-tab.active{background:var(--tint); color:var(--brand-dark);}
+.search-row{display:grid; grid-template-columns:1.3fr 1fr 1fr auto; gap:8px; padding:6px 8px 10px;}
+.search-field{
+  display:flex; align-items:center; gap:10px; padding:13px 16px;
+  border:1px solid var(--line); border-radius:11px; background:var(--base);
+}
+.search-field:focus-within{border-color:var(--brand); background:#fff;}
+.search-field svg{flex-shrink:0; opacity:0.55;}
+.search-field input,.search-field select{border:none; background:none; outline:none; width:100%; font-size:14.5px; color:var(--navy);}
+.search-field select{appearance:none; cursor:pointer;}
+.search-go{padding:13px 28px;}
+
+.quick-filters{
+  display:flex; gap:10px; justify-content:center; margin-top:22px; flex-wrap:wrap;
+}
+.chip{
+  display:flex; align-items:center; gap:7px;
+  padding:9px 18px; border-radius:99px; font-size:13.5px; font-weight:bold;
+  background:#fff; border:1px solid var(--line); color:var(--navy-soft);
+}
+.chip:hover{border-color:var(--brand); color:var(--brand);}
+
+/* Stats */
+.stats{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:var(--radius-lg);
+  overflow:hidden; margin-top:64px;
+}
+.stat{background:#fff; padding:30px 20px; text-align:center;}
+.stat b{display:block; font-size:30px; color:var(--navy); margin-bottom:4px;}
+.stat span{font-size:13.5px; color:var(--navy-soft);}
+
+/* ---------- Section generic ---------- */
+.section{padding:80px 0;}
+.section-head{display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:36px; gap:20px;}
+.section-head h2{font-size:27px; font-weight:bold; color:var(--navy); margin-bottom:8px;}
+.section-head p{font-size:14.5px; color:var(--navy-soft);}
+.section-tag{
+  font-size:12.5px; font-weight:bold; color:var(--brand); text-transform:uppercase; letter-spacing:0.5px;
+  margin-bottom:10px; display:block;
+}
+.see-all{font-size:14px; font-weight:bold; color:var(--brand); display:flex; align-items:center; gap:6px; white-space:nowrap;}
+
+.bg-tint{background:var(--tint2);}
+
+/* ---------- Clinic Card ---------- */
+.carousel{display:flex; gap:20px; overflow-x:auto; padding-bottom:8px; scroll-snap-type:x mandatory;}
+.carousel::-webkit-scrollbar{height:6px;}
+.carousel::-webkit-scrollbar-thumb{background:var(--line); border-radius:4px;}
+.clinic-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+
+.clinic-card{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg);
+  overflow:hidden; transition:all .2s; flex-shrink:0; width:340px; scroll-snap-align:start;
+  display:flex; flex-direction:column;
+}
+.clinic-grid .clinic-card{width:auto;}
+.clinic-card:hover{box-shadow:0 16px 36px rgba(11,30,61,0.10); transform:translateY(-3px); border-color:#d3e3fb;}
+.clinic-thumb{
+  height:160px; position:relative;
+  background:linear-gradient(135deg, var(--tint) 0%, #dceaff 100%);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.clinic-thumb svg{width:64px; height:64px; opacity:0.5;}
+.clinic-thumb::after{
+  content:''; position:absolute; right:0; left:0; height:36px;
+  background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 100%);
+  bottom:0;
+}
+.badge-float{
+  position:absolute; top:12px; left:12px; background:#fff; padding:5px 11px; border-radius:99px;
+  font-size:12px; font-weight:bold; display:flex; align-items:center; gap:5px; box-shadow:var(--shadow); z-index:2;
+}
+.badge-float.new{color:var(--teal); }
+.badge-float.top{color:var(--amber);}
+.clinic-body{padding:18px 18px 16px; flex:1; display:flex; flex-direction:column;}
+.clinic-name{font-size:16.5px; font-weight:bold; margin-bottom:4px;}
+.clinic-meta{display:flex; align-items:center; gap:6px; font-size:13px; color:var(--navy-soft); margin-bottom:12px;}
+.clinic-rating{display:flex; align-items:center; gap:5px; font-size:13.5px; font-weight:bold; color:var(--navy); margin-bottom:12px;}
+.clinic-rating svg{color:var(--amber);}
+.clinic-rating .count{font-weight:normal; color:var(--navy-soft);}
+.clinic-tags{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px;}
+.tag{
+  font-size:11.5px; padding:4px 10px; border-radius:7px; background:var(--tint2); color:var(--navy-soft);
+  border:1px solid var(--line); font-weight:bold;
+}
+.clinic-actions{display:flex; gap:8px; margin-top:auto;}
+.clinic-actions .btn{flex:1; padding:10px;}
+
+/* ---------- Footer ---------- */
+.footer{background:var(--navy); color:#cdd9ef; padding:64px 0 28px; margin-top:auto;}
+.footer-grid{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px; margin-bottom:48px;}
+.footer h4{color:#fff; font-size:14.5px; margin-bottom:18px;}
+.footer p{font-size:13.5px; line-height:2; color:#9fb0d1;}
+.footer ul li{margin-bottom:11px; font-size:13.5px;}
+.footer ul li a:hover{color:#fff;}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.1); padding-top:24px; display:flex; justify-content:space-between;
+  font-size:12.5px; color:#7e8eae; flex-wrap:wrap; gap:10px;
+}
+.footer-logo{display:flex; align-items:center; gap:9px; font-weight:bold; color:#fff; font-size:17px; margin-bottom:14px;}
+
+/* ---------- Page: Listing ---------- */
+.page-head{
+  background:var(--tint2); border-bottom:1px solid var(--line); padding:32px 0;
+}
+.breadcrumb{font-size:13px; color:var(--navy-soft); margin-bottom:10px; display:flex; gap:8px; align-items:center;}
+.breadcrumb a:hover{color:var(--brand);}
+.page-head h1{font-size:25px; font-weight:bold;}
+.page-head .sub{font-size:14px; color:var(--navy-soft); margin-top:4px;}
+
+.listing-layout{display:grid; grid-template-columns:268px 1fr; gap:32px; padding:36px 0 80px;}
+.filter-panel{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius-md); padding:22px;
+  height:fit-content; position:sticky; top:90px;
+}
+.filter-panel h3{font-size:15px; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between;}
+.filter-panel h3 button{font-size:12.5px; color:var(--brand); font-weight:normal;}
+.filter-group{margin-bottom:22px; padding-bottom:22px; border-bottom:1px solid var(--line);}
+.filter-group:last-child{border:none; margin:0; padding:0;}
+.filter-group label.title{font-size:13.5px; font-weight:bold; margin-bottom:12px; display:block;}
+.check-row{display:flex; align-items:center; gap:9px; margin-bottom:11px; font-size:13.5px; color:var(--navy-soft); cursor:pointer;}
+.check-row input{accent-color:var(--brand); width:16px; height:16px;}
+.check-row:hover{color:var(--navy);}
+.check-row .num{margin-right:auto; color:var(--navy-soft); font-size:12px;}
+
+.listing-toolbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:22px;}
+.result-count{font-size:14px; color:var(--navy-soft);}
+.result-count b{color:var(--navy);}
+.sort-select{
+  padding:9px 14px; border:1px solid var(--line); border-radius:9px; font-size:13.5px; background:#fff;
+}
+.listing-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+.listing-grid .clinic-card{width:auto;}
+.pagination{display:flex; justify-content:center; gap:8px; margin-top:40px;}
+.page-btn{
+  width:38px; height:38px; border-radius:9px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+  font-size:13.5px; font-weight:bold; color:var(--navy-soft);
+}
+.page-btn.active{background:var(--brand); color:#fff; border-color:var(--brand);}
+.page-btn:hover:not(.active){border-color:var(--brand); color:var(--brand);}
+
+/* ---------- Page: Clinic Detail ---------- */
+.detail-hero{background:var(--tint2); border-bottom:1px solid var(--line); padding:30px 0 0;}
+.detail-top{display:flex; gap:22px; align-items:flex-start; padding-bottom:28px;}
+.detail-logo{
+  width:84px; height:84px; border-radius:18px; background:#fff; border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:var(--shadow);
+}
+.detail-info h1{font-size:24px; font-weight:bold; margin-bottom:6px;}
+.detail-info .row{display:flex; align-items:center; gap:16px; flex-wrap:wrap; font-size:13.5px; color:var(--navy-soft); margin-bottom:12px;}
+.detail-info .row span{display:flex; align-items:center; gap:6px;}
+.verified{color:var(--teal); display:flex; align-items:center; gap:5px; font-weight:bold; font-size:13px;}
+.detail-actions{margin-right:auto; display:flex; gap:10px; flex-shrink:0;}
+
+.tabs-bar{display:flex; gap:6px; border-bottom:1px solid var(--line);}
+.tab-btn{
+  padding:14px 6px; font-size:14px; font-weight:bold; color:var(--navy-soft); position:relative; margin-left:26px;
+}
+.tab-btn::after{content:''; position:absolute; bottom:-1px; right:0; left:0; height:2px; background:transparent;}
+.tab-btn.active{color:var(--brand);}
+.tab-btn.active::after{background:var(--brand);}
+
+.detail-layout{display:grid; grid-template-columns:1fr 360px; gap:32px; padding:36px 0 80px; align-items:start;}
+.detail-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius-md); padding:24px; margin-bottom:20px;}
+.detail-card h3{font-size:16px; margin-bottom:16px; display:flex; align-items:center; gap:8px;}
+.detail-card p.body-text{font-size:14px; color:var(--navy-soft); line-height:2;}
+
+.equip-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+.equip-item{
+  border:1px solid var(--line); border-radius:11px; padding:16px 12px; text-align:center;
+}
+.equip-item svg{margin:0 auto 10px; color:var(--brand);}
+.equip-item .name{font-size:13px; font-weight:bold; margin-bottom:3px;}
+.equip-item .status{font-size:11.5px; color:var(--teal); font-weight:bold;}
+
+.doctor-row{display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid var(--line);}
+.doctor-row:last-child{border:none; padding-bottom:0;}
+.doctor-avatar{
+  width:52px; height:52px; border-radius:50%; background:var(--tint); display:flex; align-items:center; justify-content:center;
+  font-weight:bold; color:var(--brand-dark); font-size:15px; flex-shrink:0;
+}
+.doctor-info b{display:block; font-size:14.5px; margin-bottom:3px;}
+.doctor-info span{font-size:12.5px; color:var(--navy-soft);}
+
+.service-row{display:flex; justify-content:space-between; align-items:center; padding:13px 0; border-bottom:1px solid var(--line); font-size:13.5px;}
+.service-row:last-child{border:none; padding-bottom:0;}
+.service-row .name{font-weight:bold;}
+.service-row .desc{color:var(--navy-soft); font-size:12.5px; margin-top:3px;}
+.service-row .price{color:var(--brand-dark); font-weight:bold; white-space:nowrap;}
+
+.hours-row{display:flex; justify-content:space-between; padding:9px 0; font-size:13.5px; color:var(--navy-soft);}
+.hours-row b{color:var(--navy); font-weight:bold;}
+.hours-row.today{color:var(--brand-dark); font-weight:bold;}
+
+.review-item{padding:16px 0; border-bottom:1px solid var(--line);}
+.review-item:last-child{border:none;}
+.review-head{display:flex; justify-content:space-between; margin-bottom:8px;}
+.review-name{font-weight:bold; font-size:14px; display:flex; align-items:center; gap:8px;}
+.review-stars{color:var(--amber); font-size:13px;}
+.review-date{font-size:12px; color:var(--navy-soft);}
+.review-text{font-size:13.5px; color:var(--navy-soft); line-height:1.9;}
+
+.map-embed{
+  height:180px; border-radius:11px; background:
+    linear-gradient(var(--tint2) 1px, transparent 1px) 0 0/24px 24px,
+    linear-gradient(90deg, var(--tint2) 1px, transparent 1px) 0 0/24px 24px,
+    #f6f9ff;
+  border:1px solid var(--line); position:relative; overflow:hidden; margin-bottom:14px;
+}
+.map-pin{
+  position:absolute; top:50%; right:50%; transform:translate(50%,-100%);
+  color:var(--brand); filter:drop-shadow(0 3px 5px rgba(48,140,246,0.4));
+}
+
+/* Booking sidebar */
+.booking-card{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius-md); padding:22px;
+  position:sticky; top:90px; box-shadow:0 16px 40px rgba(11,30,61,0.07);
+}
+.booking-card h3{font-size:16.5px; margin-bottom:4px;}
+.booking-card .hint{font-size:12.5px; color:var(--navy-soft); margin-bottom:18px;}
+.field-label{font-size:13px; font-weight:bold; margin-bottom:8px; display:block;}
+.field-block{margin-bottom:18px;}
+.select-field{
+  width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-size:13.5px; background:var(--base);
+}
+.day-strip{display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin-bottom:6px;}
+.day-pill{
+  text-align:center; padding:10px 4px; border:1px solid var(--line); border-radius:9px; font-size:12px; color:var(--navy-soft);
+}
+.day-pill b{display:block; font-size:15px; color:var(--navy); margin-top:2px;}
+.day-pill.active{background:var(--brand); border-color:var(--brand); color:#fff;}
+.day-pill.active b{color:#fff;}
+.slot-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+.slot{
+  text-align:center; padding:10px 4px; border:1px solid var(--line); border-radius:9px; font-size:13px; font-weight:bold; color:var(--navy-soft);
+}
+.slot.active{background:var(--tint); border-color:var(--brand); color:var(--brand-dark);}
+.slot.full{color:#c4cbdb; text-decoration:line-through; background:var(--tint2);}
+.price-summary{
+  display:flex; justify-content:space-between; padding:14px 0; border-top:1px dashed var(--line); margin-top:6px; font-size:14px;
+}
+.price-summary b{font-size:17px; color:var(--brand-dark);}
+
+/* ---------- Reservation flow (modal-ish full screen) ---------- */
+.flow-screen{min-height:80vh; padding:40px 0 80px;}
+.flow-steps{display:flex; align-items:center; justify-content:center; gap:0; margin-bottom:48px;}
+.flow-step{display:flex; align-items:center; gap:10px;}
+.flow-step .circle{
+  width:34px; height:34px; border-radius:50%; background:var(--tint2); border:1.5px solid var(--line);
+  display:flex; align-items:center; justify-content:center; font-size:13.5px; font-weight:bold; color:var(--navy-soft);
+}
+.flow-step.done .circle{background:var(--teal); border-color:var(--teal); color:#fff;}
+.flow-step.active .circle{background:var(--brand); border-color:var(--brand); color:#fff;}
+.flow-step .label{font-size:13px; color:var(--navy-soft); font-weight:bold;}
+.flow-step.active .label, .flow-step.done .label{color:var(--navy);}
+.flow-line{width:60px; height:1.5px; background:var(--line); margin:0 10px;}
+
+.flow-card{
+  max-width:620px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:36px; box-shadow:0 16px 40px rgba(11,30,61,0.06);
+}
+.flow-card h2{font-size:20px; margin-bottom:6px;}
+.flow-card .sub{font-size:13.5px; color:var(--navy-soft); margin-bottom:28px;}
+.form-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.form-field{margin-bottom:18px;}
+.form-field.full{grid-column:1/-1;}
+.form-field label{font-size:13px; font-weight:bold; margin-bottom:8px; display:block;}
+.form-field input,.form-field select,.form-field textarea{
+  width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-size:13.5px; background:var(--base);
+}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{outline:none; border-color:var(--brand); background:#fff;}
+.radio-card-row{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+.radio-card{
+  border:1.5px solid var(--line); border-radius:11px; padding:14px; display:flex; align-items:center; gap:10px; font-size:13.5px; font-weight:bold;
+}
+.radio-card.selected{border-color:var(--brand); background:var(--tint2); color:var(--brand-dark);}
+.radio-card input{accent-color:var(--brand);}
+
+.flow-summary{background:var(--tint2); border-radius:12px; padding:18px; margin-bottom:24px;}
+.flow-summary-row{display:flex; justify-content:space-between; font-size:13.5px; padding:6px 0; color:var(--navy-soft);}
+.flow-summary-row b{color:var(--navy);}
+.flow-summary-row.total{border-top:1px dashed var(--line); margin-top:6px; padding-top:12px; font-size:15px;}
+.flow-summary-row.total b{color:var(--brand-dark); font-size:18px;}
+
+.flow-nav{display:flex; justify-content:space-between; gap:12px; margin-top:30px;}
+
+.pay-method{display:flex; align-items:center; gap:12px; border:1.5px solid var(--line); border-radius:11px; padding:16px; margin-bottom:12px;}
+.pay-method.selected{border-color:var(--brand); background:var(--tint2);}
+.pay-method input{accent-color:var(--brand); width:17px; height:17px;}
+.pay-icon{width:38px; height:38px; border-radius:8px; background:var(--tint); display:flex; align-items:center; justify-content:center; color:var(--brand-dark); flex-shrink:0;}
+
+.success-screen{text-align:center; padding:30px 0;}
+.success-check{
+  width:80px; height:80px; border-radius:50%; background:var(--teal-tint); color:var(--teal);
+  display:flex; align-items:center; justify-content:center; margin:0 auto 24px;
+}
+.success-screen h2{font-size:22px; margin-bottom:10px;}
+.success-screen p{font-size:14px; color:var(--navy-soft); margin-bottom:30px; line-height:1.9;}
+.ticket-card{
+  background:var(--tint2); border-radius:14px; padding:22px; text-align:right; margin-bottom:30px;
+}
+.ticket-row{display:flex; justify-content:space-between; padding:8px 0; font-size:13.5px; border-bottom:1px dashed var(--line);}
+.ticket-row:last-child{border:none;}
+.ticket-row span:first-child{color:var(--navy-soft);}
+.ticket-row span:last-child{font-weight:bold;}
+
+/* ---------- Dashboard ---------- */
+.dash-layout{display:grid; grid-template-columns:240px 1fr; gap:0; min-height:70vh;}
+.dash-side{
+  border-left:1px solid var(--line); padding:28px 18px; background:var(--tint2);
+}
+.dash-profile{display:flex; align-items:center; gap:12px; margin-bottom:28px; padding:0 6px;}
+.dash-avatar{width:44px; height:44px; border-radius:50%; background:var(--brand); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold;}
+.dash-profile b{font-size:14.5px; display:block;}
+.dash-profile span{font-size:12px; color:var(--navy-soft);}
+.dash-nav-item{
+  display:flex; align-items:center; gap:11px; padding:11px 14px; border-radius:10px; font-size:13.5px; font-weight:bold;
+  color:var(--navy-soft); margin-bottom:4px;
+}
+.dash-nav-item.active{background:#fff; color:var(--brand); box-shadow:var(--shadow);}
+.dash-nav-item:hover:not(.active){background:#fff;}
+.dash-main{padding:32px;}
+.dash-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:28px;}
+.dash-head h1{font-size:22px;}
+.dash-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:32px;}
+.dash-stat{background:#fff; border:1px solid var(--line); border-radius:13px; padding:18px;}
+.dash-stat .top{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+.dash-stat .icon{width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center;}
+.dash-stat b{font-size:24px; display:block;}
+.dash-stat span{font-size:12.5px; color:var(--navy-soft);}
+
+.appt-row{
+  display:flex; align-items:center; gap:16px; padding:16px; border:1px solid var(--line); border-radius:13px; margin-bottom:12px; background:#fff;
+}
+.appt-date{
+  width:54px; height:54px; border-radius:11px; background:var(--tint); display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0;
+}
+.appt-date b{font-size:18px; color:var(--brand-dark); line-height:1.1;}
+.appt-date span{font-size:10.5px; color:var(--brand-dark);}
+.appt-info{flex:1;}
+.appt-info b{font-size:14.5px; display:block; margin-bottom:3px;}
+.appt-info span{font-size:12.5px; color:var(--navy-soft);}
+.status-pill{font-size:11.5px; font-weight:bold; padding:5px 12px; border-radius:99px;}
+.status-pill.confirmed{background:var(--teal-tint); color:var(--teal);}
+.status-pill.pending{background:var(--amber-tint); color:var(--amber);}
+
+/* ---------- misc ---------- */
+.fade-in{animation:fadeIn .35s ease;}
+@keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+.demo-banner{
+  background:var(--navy); color:#fff; text-align:center; padding:10px 16px; font-size:12.5px;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+}
+.demo-banner b{color:#8fc1ff;}
+
+/* Responsive */
+@media (max-width: 980px){
+  .nav-links, .stats{display:none;}
+  .clinic-grid{grid-template-columns:repeat(2,1fr);}
+  .listing-layout, .detail-layout{grid-template-columns:1fr;}
+  .filter-panel{position:static;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .search-row{grid-template-columns:1fr;}
+  .dash-layout{grid-template-columns:1fr;}
+  .dash-side{display:none;}
+}
+@media (max-width: 640px){
+  .hero h1{font-size:30px;}
+  .clinic-grid, .listing-grid, .equip-grid, .dash-stats{grid-template-columns:1fr 1fr;}
+  .form-grid, .radio-card-row{grid-template-columns:1fr;}
+  .mobile-toggle{display:block;}
+  .flow-card{padding:22px;}
+}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+/* ============ ICON LIBRARY (inline SVG, RTL-safe) ============ */
+const ICONS = {
+  search:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>',
+  pin:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  pinBig:'<svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>',
+  equip:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>',
+  chevDown:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>',
+  chevLeft:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>',
+  star:'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1z"/></svg>',
+  clinic:'<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l9 5v5c0 5-3.8 9.5-9 10-5.2-.5-9-5-9-10V7l9-5z"/><path d="M12 8v6M9 11h6"/></svg>',
+  users:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>',
+  city:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l5-4 5 4v14M14 21V11l5 3v7"/></svg>',
+  heart:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg>',
+  scan:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>',
+  check:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>',
+  checkSm:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>',
+  phone:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 3a2 2 0 01-.5 2.1L8 10.1a16 16 0 006 6l1.3-1.3a2 2 0 012-.5c1 .4 2 .6 3 .7a2 2 0 011.7 2.1z"/></svg>',
+  clock:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+  shield:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+  mri:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>',
+  ct:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="8" rx="4"/><circle cx="12" cy="12" r="2"/></svg>',
+  xray:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3v18M19 3v18M5 8h14M5 16h14"/></svg>',
+  us:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12a9 9 0 0118 0M7 12a5 5 0 0110 0M12 12v9"/></svg>',
+  pet:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>',
+  mammo:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v10a8 8 0 01-16 0V4z"/></svg>',
+  arrowL:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>',
+  filter:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.5V19l4 2v-8.5L22 3z"/></svg>',
+  edit:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.1 2.1 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
+  bell:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg>',
+  ticket:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 100-4V5a2 2 0 00-2-2H5a2 2 0 00-2 2v1a2 2 0 100 4z"/></svg>',
+  card:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>',
+  wallet:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2v-5h-5a2 2 0 010-4h5z"/></svg>',
+  download:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>',
+  home:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>',
+  calendar:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+  doc:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>',
+  settings:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 005 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 005 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09A1.65 1.65 0 0019 15z"/></svg>',
+  logout:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>',
+  whatsapp:'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3A10 10 0 0012 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.6-.6-2.9-1.3-4.8-4.2-5-4.4-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.1.3-.3.5-.1.2-.3.4-.4.5-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.5 1.6.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.8.3.1.4.2.5.3.1.2.1.8-.1 1.5z"/></svg>',
+};
+function ic(name){return ICONS[name]||'';}
+
+/* ============ MOCK DATA ============ */
+const CITIES = ["تهران","شیراز","اصفهان","مشهد","تبریز","کرج"];
+const CLINICS = [
+  {id:1,name:"کلینیک تصویربرداری پارسیان",city:"شیراز",area:"فرهنگ‌شهر",rating:4.8,reviews:312,tags:["MRI","سی‌تی‌اسکن","سونوگرافی"],top:true,nw:false,price:"از ۸۵۰,۰۰۰ تومان"},
+  {id:2,name:"مرکز رادیولوژی نور",city:"تهران",area:"ولیعصر",rating:4.6,reviews:540,tags:["MRI","ماموگرافی","رادیولوژی دیجیتال"],top:true,nw:false,price:"از ۹۲۰,۰۰۰ تومان"},
+  {id:3,name:"درمانگاه تصویربرداری آریا",city:"اصفهان",area:"چهارباغ",rating:4.5,reviews:198,tags:["سی‌تی‌اسکن","رادیوگرافی","PET-CT"],top:false,nw:true,price:"از ۷۸۰,۰۰۰ تومان"},
+  {id:4,name:"کلینیک تخصصی رادیولوژی سینا",city:"مشهد",area:"احمدآباد",rating:4.7,reviews:271,tags:["سونوگرافی","MRI","اورژانس ۲۴ساعته"],top:false,nw:false,price:"از ۸۱۰,۰۰۰ تومان"},
+  {id:5,name:"مرکز تصویربرداری پیشرفته رازی",city:"تبریز",area:"ولیعصر",rating:4.4,reviews:156,tags:["سی‌تی‌اسکن","رادیوگرافی"],top:false,nw:true,price:"از ۷۵۰,۰۰۰ تومان"},
+  {id:6,name:"کلینیک رادیولوژی ایمن",city:"کرج",area:"گوهردشت",rating:4.3,reviews:89,tags:["سونوگرافی","ماموگرافی"],top:false,nw:false,price:"از ۶۹۰,۰۰۰ تومان"},
+];
+const DOCTORS = [
+  {name:"دکتر سارا محمدی",spec:"متخصص رادیولوژی و تصویربرداری پیشرفته", init:"س.م"},
+  {name:"دکتر امیر حسینی",spec:"فوق‌تخصص رادیولوژی مداخله‌ای", init:"ا.ح"},
+  {name:"دکتر مریم کریمی",spec:"متخصص رادیولوژی، فلوشیپ نوروردیولوژی", init:"م.ک"},
+];
+const SERVICES = [
+  {name:"ام‌آر‌آی با کنتراست",desc:"تمام نواحی بدن، با تزریق ماده حاجب",price:"۲,۴۰۰,۰۰۰ تومان"},
+  {name:"ام‌آر‌آی بدون کنتراست",desc:"تمام نواحی بدن",price:"۱,۸۵۰,۰۰۰ تومان"},
+  {name:"سی‌تی‌اسکن اسپیرال",desc:"با کیفیت تصویر بالا و دوز اشعه کم",price:"۱,۲۰۰,۰۰۰ تومان"},
+  {name:"سونوگرافی رنگی داپلر",desc:"عروق و بافت نرم",price:"۸۵۰,۰۰۰ تومان"},
+];
+const SLOTS = ["۰۸:۳۰","۰۹:۰۰","۰۹:۳۰","۱۰:۰۰","۱۰:۳۰","۱۱:۰۰","۱۳:۰۰","۱۳:۳۰","۱۴:۰۰"];
+const DAYS = [
+  {d:"شنبه",n:"۲۹"},{d:"یکشنبه",n:"۳۰"},{d:"دوشنبه",n:"۳۱"},{d:"سه‌شنبه",n:"۱"},{d:"چهارشنبه",n:"۲"}
+];
+
+/* ============ STATE / ROUTER ============ */
+let state = {
+  route:'home',
+  clinicId:1,
+  bookStep:1,
+  selDay:0,
+  selSlot:2,
+  selDoctor:0,
+  payMethod:0,
+};
+
+function nav(route, params){
+  state.route = route;
+  if(params) Object.assign(state, params);
+  window.scrollTo({top:0,behavior:'instant'});
+  render();
+}
+
+/* ============ SHARED COMPONENTS ============ */
+function Topbar(active){
+  return `
+  <div class="demo-banner"><span>${ic('scan')}</span> این یک <b>نمونه نمایشی (دمو)</b> از پلتفرم آی رادیولوژی است — برای ارائه به سرمایه‌گذار و تیم</div>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="logo" onclick="nav('home')">
+        <div class="logo-mark"></div>
+        آی رادیولوژی
+      </div>
+      <nav class="nav-links">
+        <a onclick="nav('home')" class="${active==='home'?'active':''}">خانه</a>
+        <a onclick="nav('listing')" class="${active==='listing'?'active':''}">کلینیک‌ها</a>
+        <a onclick="nav('about')" class="${active==='about'?'active':''}">درباره ما</a>
+        <a onclick="nav('contact')" class="${active==='contact'?'active':''}">تماس با ما</a>
+        <a onclick="nav('clinicSignup')" class="${active==='clinicSignup'?'active':''}">ثبت کلینیک</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm" onclick="nav('dashboard')">${ic('users')} پنل کاربری</button>
+        <button class="btn btn-primary btn-sm" onclick="nav('listing')">رزرو نوبت</button>
+      </div>
+    </div>
+  </header>`;
+}
+
+function Footer(){
+  return `
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo"><div class="logo-mark"></div>آی رادیولوژی</div>
+          <p>پلتفرم یکپارچه معرفی، مقایسه و رزرو نوبت کلینیک‌های رادیولوژی در سراسر ایران. تصویربرداری دقیق، تجربه‌ای ساده.</p>
+        </div>
+        <div>
+          <h4>دسترسی سریع</h4>
+          <ul>
+            <li><a onclick="nav('listing')">لیست کلینیک‌ها</a></li>
+            <li><a onclick="nav('about')">درباره ما</a></li>
+            <li><a onclick="nav('clinicSignup')">ثبت کلینیک</a></li>
+            <li><a onclick="nav('support')">پشتیبانی</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>خدمات</h4>
+          <ul>
+            <li><a>ام‌آر‌آی</a></li>
+            <li><a>سی‌تی‌اسکن</a></li>
+            <li><a>سونوگرافی</a></li>
+            <li><a>رادیوگرافی</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>تماس با ما</h4>
+          <ul>
+            <li>شیراز، فرهنگ‌شهر</li>
+            <li dir="ltr" style="text-align:right">۰۹۱۷۵۸۲۱۶۸۲</li>
+            <li>info@i-radiology.ir</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© ۱۴۰۵ آی رادیولوژی. تمامی حقوق محفوظ است.</span>
+        <span>طراحی‌شده با تمرکز بر دقت تشخیصی و آرامش بیمار</span>
+      </div>
+    </div>
+  </footer>`;
+}
+
+function StarRow(rating){
+  return `<span style="display:flex;gap:1px">${Array(5).fill(0).map((_,i)=>`<span style="opacity:${i<Math.round(rating)?1:0.25}">${ic('star')}</span>`).join('')}</span>`;
+}
+
+function ClinicCard(c){
+  return `
+  <div class="clinic-card" onclick="nav('detail',{clinicId:${c.id}})">
+    <div class="clinic-thumb">
+      ${c.top?`<span class="badge-float top">${ic('star')} برتر</span>`:c.nw?`<span class="badge-float new">جدید</span>`:''}
+      <span style="color:var(--brand)">${ic('clinic')}</span>
+    </div>
+    <div class="clinic-body">
+      <div class="clinic-name">${c.name}</div>
+      <div class="clinic-meta">${ic('pin')} ${c.city}، ${c.area}</div>
+      <div class="clinic-rating">${StarRow(c.rating)} ${c.rating} <span class="count">(${c.reviews} نظر)</span></div>
+      <div class="clinic-tags">${c.tags.slice(0,3).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <div class="clinic-actions">
+        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();nav('detail',{clinicId:${c.id}})">مشاهده جزئیات</button>
+        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();nav('booking',{clinicId:${c.id},bookStep:1})">رزرو نوبت</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ============ PAGE: HOME ============ */
+function HomePage(){
+  return `
+  ${Topbar('home')}
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <span class="eyebrow"><span class="dot"></span> بیش از ۴۲۰ کلینیک فعال در ۶۸ شهر ایران</span>
+      <h1>تصویربرداری دقیق، با <span>یک جست‌وجوی ساده</span> پیدا کنید</h1>
+      <p>کلینیک رادیولوژی مناسب خود را در سراسر ایران بیابید، پزشکان و تجهیزات را مقایسه کنید و نوبت خود را در چند ثانیه رزرو کنید.</p>
+
+      <div class="search-card">
+        <div class="search-tabs">
+          <span class="search-tab active">جست‌وجوی کلینیک</span>
+          <span class="search-tab">جست‌وجوی پزشک</span>
+        </div>
+        <div class="search-row">
+          <div class="search-field">${ic('pin')}<select><option>شهر را انتخاب کنید</option>${CITIES.map(c=>`<option>${c}</option>`).join('')}</select></div>
+          <div class="search-field">${ic('equip')}<select><option>نوع تجهیزات</option><option>MRI</option><option>سی‌تی‌اسکن</option><option>سونوگرافی</option><option>ماموگرافی</option></select></div>
+          <div class="search-field">${ic('clinic')}<select><option>تخصص</option><option>رادیولوژی عمومی</option><option>نورورادیولوژی</option><option>رادیولوژی مداخله‌ای</option></select></div>
+          <button class="btn btn-primary search-go" onclick="nav('listing')">${ic('search')} جست‌وجو</button>
+        </div>
+      </div>
+
+      <div class="quick-filters">
+        <span class="chip" onclick="nav('listing')">${ic('star')} برترین کلینیک‌ها</span>
+        <span class="chip" onclick="nav('listing')">${ic('pin')} نزدیک من</span>
+        <span class="chip" onclick="nav('listing')">${ic('clock')} تازه‌ترین‌ها</span>
+        <span class="chip" onclick="nav('listing')">${ic('shield')} دارای بیمه طرف قرارداد</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>۴۲۰+</b><span>کلینیک فعال</span></div>
+        <div class="stat"><b>۶۸</b><span>شهر تحت پوشش</span></div>
+        <div class="stat"><b>۱۸۰هزار+</b><span>بیمار راضی</span></div>
+        <div class="stat"><b>۹۶٪</b><span>رضایت از رزرو آنلاین</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div><span class="section-tag">پیشنهادی</span><h2>کلینیک‌های برتر این هفته</h2><p>بر اساس امتیاز بیماران و سرعت پاسخ‌گویی</p></div>
+        <a class="see-all" onclick="nav('listing')">مشاهده همه ${ic('chevLeft')}</a>
+      </div>
+      <div class="carousel">${CLINICS.map(ClinicCard).join('')}</div>
+    </div>
+  </section>
+
+  <section class="section bg-tint">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:40px">
+        <div><span class="section-tag">چرا آی رادیولوژی</span><h2>یک پلتفرم، تمام نیازهای تصویربرداری شما</h2></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+        ${[
+          [ic('search'),'جست‌وجوی هوشمند','بر اساس شهر، تجهیزات یا تخصص، نزدیک‌ترین کلینیک را پیدا کنید.'],
+          [ic('calendar'),'رزرو آنلاین نوبت','بدون تماس تلفنی، نوبت خود را در چند کلیک رزرو کنید.'],
+          [ic('shield'),'استعلام بیمه','پوشش بیمه‌ای خود را پیش از مراجعه بررسی کنید.'],
+          [ic('heart'),'نظرات واقعی بیماران','تجربه دیگر بیماران را پیش از انتخاب کلینیک بخوانید.'],
+        ].map(f=>`
+        <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px">
+          <div style="width:46px;height:46px;border-radius:12px;background:var(--tint);color:var(--brand);display:flex;align-items:center;justify-content:center;margin-bottom:16px">${f[0]}</div>
+          <div style="font-weight:bold;font-size:15px;margin-bottom:8px">${f[1]}</div>
+          <div style="font-size:13px;color:var(--navy-soft);line-height:1.9">${f[2]}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap" style="background:var(--navy);border-radius:24px;padding:56px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap">
+      <div style="max-width:480px">
+        <div style="color:#8fc1ff;font-size:13px;font-weight:bold;margin-bottom:10px">برای کلینیک‌ها و مراکز تصویربرداری</div>
+        <h2 style="color:#fff;font-size:25px;margin-bottom:12px">کلینیک خود را در آی رادیولوژی ثبت کنید</h2>
+        <p style="color:#9fb0d1;font-size:14px;line-height:1.9">به بیش از ۴۲۰ کلینیک عضو بپیوندید و نوبت‌دهی، مدیریت پزشکان و ارتباط با بیماران را در یک پنل واحد انجام دهید.</p>
+      </div>
+      <button class="btn btn-primary" style="padding:15px 30px" onclick="nav('clinicSignup')">ثبت‌نام کلینیک ${ic('arrowL')}</button>
+    </div>
+  </section>
+  ${Footer()}
+  `;
+}
+
+/* ============ PAGE: LISTING ============ */
+function ListingPage(){
+  return `
+  ${Topbar('listing')}
+  <div class="page-head">
+    <div class="wrap">
+      <div class="breadcrumb"><a onclick="nav('home')">خانه</a> / <span>کلینیک‌ها</span></div>
+      <h1>لیست کلینیک‌های رادیولوژی</h1>
+      <div class="sub">${CLINICS.length} کلینیک یافت شد در سراسر ایران</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="listing-layout">
+      <aside class="filter-panel">
+        <h3>فیلترها <button>پاک‌کردن</button></h3>
+        <div class="filter-group">
+          <label class="title">شهر</label>
+          ${CITIES.map(c=>`<label class="check-row"><input type="checkbox" ${c==='شیراز'?'checked':''}>${c}<span class="num">${Math.floor(Math.random()*40+10)}</span></label>`).join('')}
+        </div>
+        <div class="filter-group">
+          <label class="title">تجهیزات</label>
+          ${['MRI','سی‌تی‌اسکن','سونوگرافی','ماموگرافی','PET-CT'].map(c=>`<label class="check-row"><input type="checkbox">${c}</label>`).join('')}
+        </div>
+        <div class="filter-group">
+          <label class="title">بیمه طرف قرارداد</label>
+          ${['تامین اجتماعی','بیمه سلامت ایران','بیمه‌های تکمیلی'].map(c=>`<label class="check-row"><input type="checkbox">${c}</label>`).join('')}
+        </div>
+        <div class="filter-group">
+          <label class="title">جنسیت پزشک</label>
+          <label class="check-row"><input type="radio" name="gender" checked>بدون محدودیت</label>
+          <label class="check-row"><input type="radio" name="gender">زن</label>
+          <label class="check-row"><input type="radio" name="gender">مرد</label>
+        </div>
+      </aside>
+      <div>
+        <div class="listing-toolbar">
+          <div class="result-count"><b>${CLINICS.length}</b> کلینیک یافت شد</div>
+          <select class="sort-select"><option>مرتب‌سازی: محبوب‌ترین</option><option>بالاترین امتیاز</option><option>نزدیک‌ترین</option></select>
+        </div>
+        <div class="listing-grid">${CLINICS.map(ClinicCard).join('')}</div>
+        <div class="pagination">
+          <button class="page-btn active">۱</button><button class="page-btn">۲</button><button class="page-btn">۳</button>
+          <button class="page-btn">${ic('chevLeft')}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  ${Footer()}
+  `;
+}
+
+/* ============ PAGE: CLINIC DETAIL ============ */
+function DetailPage(){
+  const c = CLINICS.find(x=>x.id===state.clinicId) || CLINICS[0];
+  return `
+  ${Topbar('listing')}
+  <div class="detail-hero">
+    <div class="wrap">
+      <div class="breadcrumb"><a onclick="nav('home')">خانه</a> / <a onclick="nav('listing')">کلینیک‌ها</a> / <span>${c.name}</span></div>
+      <div class="detail-top">
+        <div class="detail-logo" style="color:var(--brand)">${ic('clinic')}</div>
+        <div class="detail-info">
+          <h1>${c.name}</h1>
+          <div class="row">
+            <span>${ic('pin')} ${c.city}، ${c.area}</span>
+            <span>${StarRow(c.rating)} ${c.rating} (${c.reviews} نظر)</span>
+            <span class="verified">${ic('shield')} تأیید‌شده توسط آی رادیولوژی</span>
+          </div>
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-ghost btn-sm">${ic('heart')}</button>
+          <button class="btn btn-primary" onclick="nav('booking',{clinicId:${c.id},bookStep:1})">رزرو نوبت</button>
+        </div>
+      </div>
+      <div class="tabs-bar">
+        <span class="tab-btn active">معرفی کلینیک</span>
+        <span class="tab-btn">پزشکان</span>
+        <span class="tab-btn">خدمات و قیمت‌ها</span>
+        <span class="tab-btn">نظرات بیماران</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="detail-layout">
+      <div>
+        <div class="detail-card">
+          <h3>${ic('clinic')} درباره کلینیک</h3>
+          <p class="body-text">${c.name} با بیش از ۱۲ سال سابقه، یکی از مراکز پیشرو تصویربرداری پزشکی در ${c.city} است. این مرکز با بهره‌گیری از دستگاه‌های نسل جدید و تیمی از پزشکان متخصص، خدمات تصویربرداری را با بالاترین استاندارد کیفیت ارائه می‌دهد.</p>
+        </div>
+
+        <div class="detail-card">
+          <h3>${ic('equip')} تجهیزات موجود</h3>
+          <div class="equip-grid">
+            <div class="equip-item">${ic('mri')}<div class="name">MRI ۱.۵ تسلا</div><div class="status">فعال</div></div>
+            <div class="equip-item">${ic('ct')}<div class="name">سی‌تی‌اسکن ۱۲۸ اسلایس</div><div class="status">فعال</div></div>
+            <div class="equip-item">${ic('us')}<div class="name">سونوگرافی رنگی</div><div class="status">فعال</div></div>
+            <div class="equip-item">${ic('xray')}<div class="name">رادیوگرافی دیجیتال</div><div class="status">فعال</div></div>
+            <div class="equip-item">${ic('mammo')}<div class="name">ماموگرافی</div><div class="status">فعال</div></div>
+            <div class="equip-item">${ic('pet')}<div class="name">PET-CT</div><div class="status">به‌زودی</div></div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <h3>${ic('users')} پزشکان کلینیک</h3>
+          ${DOCTORS.map(d=>`
+          <div class="doctor-row">
+            <div class="doctor-avatar">${d.init}</div>
+            <div class="doctor-info"><b>${d.name}</b><span>${d.spec}</span></div>
+          </div>`).join('')}
+        </div>
+
+        <div class="detail-card">
+          <h3>${ic('scan')} خدمات و تعرفه‌ها</h3>
+          ${SERVICES.map(s=>`
+          <div class="service-row">
+            <div><div class="name">${s.name}</div><div class="desc">${s.desc}</div></div>
+            <div class="price">${s.price}</div>
+          </div>`).join('')}
+        </div>
+
+        <div class="detail-card">
+          <h3>${ic('clock')} ساعات کاری</h3>
+          <div class="hours-row today"><b>شنبه تا چهارشنبه</b><span>۰۷:۳۰ — ۲۰:۰۰</span></div>
+          <div class="hours-row"><b>پنج‌شنبه</b><span>۰۷:۳۰ — ۱۴:۰۰</span></div>
+          <div class="hours-row"><b>جمعه</b><span>تعطیل (اورژانس فعال)</span></div>
+        </div>
+
+        <div class="detail-card">
+          <h3>${ic('heart')} نظرات بیماران</h3>
+          ${[
+            ['نگار ا.','۲ هفته پیش','نوبت‌دهی آنلاین خیلی سریع و راحت بود، نتیجه ام‌آر‌آی هم زودتر از موعد آماده شد.'],
+            ['حسین ر.','۱ ماه پیش','برخورد پرسنل عالی بود ولی کمی برای نوبت معطل شدم.'],
+          ].map(r=>`
+          <div class="review-item">
+            <div class="review-head"><span class="review-name">${r[0]} <span class="review-stars">★★★★★</span></span><span class="review-date">${r[1]}</span></div>
+            <div class="review-text">${r[2]}</div>
+          </div>`).join('')}
+        </div>
+      </div>
+
+      <div>
+        <div class="detail-card">
+          <h3>${ic('pin')} موقعیت مکانی</h3>
+          <div class="map-embed"><span class="map-pin">${ic('pinBig')}</span></div>
+          <div style="font-size:13px;color:var(--navy-soft);margin-bottom:10px">${c.city}، ${c.area}، خیابان اصلی، پلاک ۲۴</div>
+          <div style="font-size:13px;display:flex;align-items:center;gap:8px;color:var(--navy-soft)">${ic('phone')} <span dir="ltr">۰۷۱-۳۶۲۸۴۴۲۱</span></div>
+        </div>
+
+        <div class="booking-card">
+          <h3>رزرو سریع نوبت</h3>
+          <div class="hint">یک خدمت، روز و ساعت را انتخاب کنید</div>
+          <button class="btn btn-primary btn-block" onclick="nav('booking',{clinicId:${c.id},bookStep:1})">${ic('calendar')} شروع رزرو نوبت</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  ${Footer()}
+  `;
+}
+
+/* ============ PAGE: BOOKING FLOW ============ */
+function BookingSteps(){
+  const labels = ['انتخاب خدمت','تاریخ و ساعت','اطلاعات بیمار','پرداخت'];
+  return `
+  <div class="flow-steps">
+    ${labels.map((l,i)=>{
+      const n=i+1;
+      const cls = n<state.bookStep?'done':n===state.bookStep?'active':'';
+      return `<div class="flow-step ${cls}"><div class="circle">${n<state.bookStep?ic('checkSm'):n}</div><span class="label">${l}</span></div>${i<labels.length-1?'<div class="flow-line"></div>':''}`;
+    }).join('')}
+  </div>`;
+}
+
+function BookingPage(){
+  const c = CLINICS.find(x=>x.id===state.clinicId) || CLINICS[0];
+  let inner = '';
+
+  if(state.bookStep===1){
+    inner = `
+    <h2>انتخاب خدمت و پزشک</h2>
+    <div class="sub">${c.name} — لطفاً نوع خدمت مورد نیاز خود را انتخاب کنید</div>
+    <div class="field-block">
+      <label class="field-label">خدمت</label>
+      <div class="radio-card-row">
+        ${SERVICES.slice(0,4).map((s,i)=>`
+        <label class="radio-card ${i===0?'selected':''}">
+          <input type="radio" name="svc" ${i===0?'checked':''}>
+          <div>${s.name}<div style="font-weight:normal;font-size:11.5px;color:var(--navy-soft);margin-top:2px">${s.price}</div></div>
+        </label>`).join('')}
+      </div>
+    </div>
+    <div class="field-block">
+      <label class="field-label">پزشک</label>
+      <select class="select-field">${DOCTORS.map(d=>`<option>${d.name} — ${d.spec}</option>`).join('')}</select>
+    </div>
+    <div class="flow-nav">
+      <button class="btn btn-ghost" onclick="nav('detail',{clinicId:${c.id}})">${ic('arrowL')} انصراف</button>
+      <button class="btn btn-primary" onclick="nav('booking',{bookStep:2})">مرحله بعد ${ic('chevLeft')}</button>
+    </div>`;
+  }
+  else if(state.bookStep===2){
+    inner = `
+    <h2>انتخاب تاریخ و ساعت</h2>
+    <div class="sub">نزدیک‌ترین نوبت خالی: فردا، ساعت ۰۹:۰۰</div>
+    <div class="field-block">
+      <label class="field-label">روز</label>
+      <div class="day-strip">
+        ${DAYS.map((d,i)=>`<div class="day-pill ${i===state.selDay?'active':''}" onclick="state.selDay=${i};render()">${d.d}<b>${d.n}</b></div>`).join('')}
+      </div>
+    </div>
+    <div class="field-block">
+      <label class="field-label">ساعت‌های خالی</label>
+      <div class="slot-grid">
+        ${SLOTS.map((s,i)=>{
+          const full = [4,7].includes(i);
+          return `<div class="slot ${i===state.selSlot&&!full?'active':''} ${full?'full':''}" onclick="${full?'':'state.selSlot='+i+';render()'}">${s}</div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div class="flow-nav">
+      <button class="btn btn-ghost" onclick="nav('booking',{bookStep:1})">${ic('arrowL')} مرحله قبل</button>
+      <button class="btn btn-primary" onclick="nav('booking',{bookStep:3})">مرحله بعد ${ic('chevLeft')}</button>
+    </div>`;
+  }
+  else if(state.bookStep===3){
+    inner = `
+    <h2>اطلاعات بیمار</h2>
+    <div class="sub">این اطلاعات برای صدور نوبت و ارسال پیامک یادآوری استفاده می‌شود</div>
+    <div class="form-grid">
+      <div class="form-field"><label>نام</label><input placeholder="مثلاً نگار"></div>
+      <div class="form-field"><label>نام خانوادگی</label><input placeholder="مثلاً احمدی"></div>
+      <div class="form-field"><label>شماره موبایل</label><input dir="ltr" placeholder="0912xxxxxxx"></div>
+      <div class="form-field"><label>کد ملی</label><input dir="ltr" placeholder="xxxxxxxxxx"></div>
+      <div class="form-field full"><label>توضیحات یا ارجاع پزشک (اختیاری)</label><textarea rows="3" placeholder="در صورت وجود برگه ارجاع، توضیح دهید"></textarea></div>
+    </div>
+    <div class="flow-nav">
+      <button class="btn btn-ghost" onclick="nav('booking',{bookStep:2})">${ic('arrowL')} مرحله قبل</button>
+      <button class="btn btn-primary" onclick="nav('booking',{bookStep:4})">مرحله بعد ${ic('chevLeft')}</button>
+    </div>`;
+  }
+  else if(state.bookStep===4){
+    inner = `
+    <h2>پرداخت و تأیید نهایی</h2>
+    <div class="sub">پیش از پرداخت، خلاصه نوبت خود را بررسی کنید</div>
+    <div class="flow-summary">
+      <div class="flow-summary-row"><span>کلینیک</span><b>${c.name}</b></div>
+      <div class="flow-summary-row"><span>خدمت</span><b>${SERVICES[0].name}</b></div>
+      <div class="flow-summary-row"><span>تاریخ</span><b>${DAYS[state.selDay].d}، ${DAYS[state.selDay].n} ام</b></div>
+      <div class="flow-summary-row"><span>ساعت</span><b>${SLOTS[state.selSlot]}</b></div>
+      <div class="flow-summary-row total"><span>مبلغ قابل پرداخت</span><b>${SERVICES[0].price}</b></div>
+    </div>
+    <label class="field-label">روش پرداخت</label>
+    <label class="pay-method selected"><input type="radio" name="pay" checked><div class="pay-icon">${ic('card')}</div>درگاه بانکی (شتاب)</label>
+    <label class="pay-method"><input type="radio" name="pay"><div class="pay-icon">${ic('wallet')}</div>کیف پول آی رادیولوژی</label>
+    <label class="pay-method"><input type="radio" name="pay"><div class="pay-icon">${ic('clinic')}</div>پرداخت در محل کلینیک</label>
+    <div class="flow-nav">
+      <button class="btn btn-ghost" onclick="nav('booking',{bookStep:3})">${ic('arrowL')} مرحله قبل</button>
+      <button class="btn btn-primary" onclick="nav('booking',{bookStep:5})">پرداخت و ثبت نهایی</button>
+    </div>`;
+  }
+  else if(state.bookStep===5){
+    return `
+    ${Topbar('listing')}
+    <div class="flow-screen wrap">
+      <div class="flow-card success-screen fade-in">
+        <div class="success-check">${ic('check')}</div>
+        <h2>نوبت شما با موفقیت ثبت شد</h2>
+        <p>پیامک تأییدیه به همراه کد رهگیری برای شما ارسال شد.<br>منتظر دیدارتان در ${c.name} هستیم.</p>
+        <div class="ticket-card">
+          <div class="ticket-row"><span>کد رهگیری</span><span dir="ltr">IR-${c.id}48217</span></div>
+          <div class="ticket-row"><span>کلینیک</span><span>${c.name}</span></div>
+          <div class="ticket-row"><span>تاریخ و ساعت</span><span>${DAYS[state.selDay].d}، ساعت ${SLOTS[state.selSlot]}</span></div>
+          <div class="ticket-row"><span>خدمت</span><span>${SERVICES[0].name}</span></div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-ghost btn-block" onclick="nav('home')">بازگشت به خانه</button>
+          <button class="btn btn-primary btn-block" onclick="nav('dashboard')">${ic('calendar')} مشاهده در پنل کاربری</button>
+        </div>
+      </div>
+    </div>
+    ${Footer()}`;
+  }
+
+  return `
+  ${Topbar('listing')}
+  <div class="flow-screen wrap">
+    ${BookingSteps()}
+    <div class="flow-card fade-in">${inner}</div>
+  </div>
+  ${Footer()}
+  `;
+}
+
+/* ============ PAGE: DASHBOARD ============ */
+function DashboardPage(){
+  return `
+  ${Topbar('dashboard')}
+  <div class="wrap" style="padding:0">
+    <div class="dash-layout">
+      <aside class="dash-side">
+        <div class="dash-profile">
+          <div class="dash-avatar">ن.ا</div>
+          <div><b>نگار احمدی</b><span>بیمار</span></div>
+        </div>
+        <div class="dash-nav-item active">${ic('home')} نوبت‌های من</div>
+        <div class="dash-nav-item">${ic('heart')} کلینیک‌های منتخب</div>
+        <div class="dash-nav-item">${ic('doc')} سوابق تصویربرداری</div>
+        <div class="dash-nav-item">${ic('bell')} اعلان‌ها</div>
+        <div class="dash-nav-item">${ic('settings')} تنظیمات حساب</div>
+        <div class="dash-nav-item" style="margin-top:20px;color:var(--red)">${ic('logout')} خروج از حساب</div>
+      </aside>
+      <main class="dash-main">
+        <div class="dash-head">
+          <h1>سلام نگار 👋</h1>
+          <button class="btn btn-primary btn-sm" onclick="nav('listing')">${ic('search')} رزرو نوبت جدید</button>
+        </div>
+
+        <div class="dash-stats">
+          <div class="dash-stat"><div class="top"><span>نوبت پیش‌رو</span><div class="icon" style="background:var(--tint);color:var(--brand)">${ic('calendar')}</div></div><b>۱</b><span>۲۵ تیر، ساعت ۰۹:۳۰</span></div>
+          <div class="dash-stat"><div class="top"><span>نوبت‌های گذشته</span><div class="icon" style="background:var(--teal-tint);color:var(--teal)">${ic('checkSm')}</div></div><b>۷</b><span>از ابتدای عضویت</span></div>
+          <div class="dash-stat"><div class="top"><span>کلینیک منتخب</span><div class="icon" style="background:var(--red-tint);color:var(--red)">${ic('heart')}</div></div><b>۳</b><span>برای دسترسی سریع</span></div>
+          <div class="dash-stat"><div class="top"><span>سوابق ذخیره‌شده</span><div class="icon" style="background:var(--amber-tint);color:var(--amber)">${ic('doc')}</div></div><b>۴</b><span>گزارش تصویربرداری</span></div>
+        </div>
+
+        <h3 style="font-size:16px;margin-bottom:14px">نوبت‌های پیش‌رو</h3>
+        <div class="appt-row">
+          <div class="appt-date"><b>۲۵</b><span>تیر</span></div>
+          <div class="appt-info"><b>کلینیک تصویربرداری پارسیان</b><span>ام‌آر‌آی با کنتراست — ساعت ۰۹:۳۰</span></div>
+          <span class="status-pill confirmed">تأیید‌شده</span>
+        </div>
+        <div class="appt-row">
+          <div class="appt-date" style="background:var(--amber-tint)"><b style="color:var(--amber)">۰۲</b><span style="color:var(--amber)">مرداد</span></div>
+          <div class="appt-info"><b>مرکز رادیولوژی نور</b><span>سونوگرافی رنگی داپلر — ساعت ۱۱:۰۰</span></div>
+          <span class="status-pill pending">در انتظار تأیید</span>
+        </div>
+
+        <h3 style="font-size:16px;margin:28px 0 14px">نوبت‌های گذشته</h3>
+        <div class="appt-row" style="opacity:0.7">
+          <div class="appt-date" style="background:var(--tint2)"><b style="color:var(--navy-soft)">۱۰</b><span style="color:var(--navy-soft)">خرداد</span></div>
+          <div class="appt-info"><b>کلینیک تخصصی رادیولوژی سینا</b><span>سی‌تی‌اسکن اسپیرال</span></div>
+          <span class="status-pill" style="background:var(--tint2);color:var(--navy-soft)">انجام‌شده</span>
+        </div>
+      </main>
+    </div>
+  </div>
+  `;
+}
+
+/* ============ PAGE: ABOUT ============ */
+function AboutPage(){
+  return `
+  ${Topbar('about')}
+  <div class="page-head">
+    <div class="wrap">
+      <div class="breadcrumb"><a onclick="nav('home')">خانه</a> / <span>درباره ما</span></div>
+      <h1>درباره آی رادیولوژی</h1>
+    </div>
+  </div>
+  <section class="section">
+    <div class="wrap" style="max-width:820px">
+      <span class="section-tag">مأموریت ما</span>
+      <h2 style="font-size:24px;margin-bottom:16px">دسترسی ساده‌تر به تصویربرداری پزشکی، برای هر ایرانی در هر شهر</h2>
+      <p style="font-size:14.5px;line-height:2.1;color:var(--navy-soft);margin-bottom:32px">آی رادیولوژی با هدف یکپارچه‌سازی اطلاعات کلینیک‌های رادیولوژی سراسر کشور راه‌اندازی شده است. ما باور داریم که پیدا کردن کلینیک مناسب، مقایسه تجهیزات و رزرو نوبت نباید فرآیندی پیچیده و وقت‌گیر باشد.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px">
+        <div style="background:var(--tint2);border-radius:16px;padding:24px">
+          <div style="color:var(--brand);margin-bottom:12px">${ic('users')}</div>
+          <b style="font-size:15px">برای بیماران</b>
+          <p style="font-size:13.5px;color:var(--navy-soft);margin-top:8px;line-height:1.9">جست‌وجوی سریع، مقایسه شفاف قیمت‌ها و رزرو آنلاین بدون نیاز به تماس تلفنی.</p>
+        </div>
+        <div style="background:var(--tint2);border-radius:16px;padding:24px">
+          <div style="color:var(--brand);margin-bottom:12px">${ic('clinic')}</div>
+          <b style="font-size:15px">برای کلینیک‌ها</b>
+          <p style="font-size:13.5px;color:var(--navy-soft);margin-top:8px;line-height:1.9">مدیریت یکپارچه نوبت‌دهی، کاهش نوبت‌های خالی و دسترسی به بیماران بیشتر.</p>
+        </div>
+      </div>
+
+      <span class="section-tag">تیم ما</span>
+      <h2 style="font-size:22px;margin-bottom:20px">ساخته‌شده توسط تیمی با تجربه در سلامت دیجیتال</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        ${['بنیان‌گذار و مدیرعامل','مدیر فنی','مدیر محصول'].map((r,i)=>`
+        <div style="text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px 16px">
+          <div style="width:64px;height:64px;border-radius:50%;background:var(--tint);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:var(--brand-dark);font-weight:bold">${['ع.ر','ن.ت','س.ف'][i]}</div>
+          <div style="font-weight:bold;font-size:14px">${r}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </section>
+  ${Footer()}
+  `;
+}
+
+/* ============ PAGE: CONTACT ============ */
+function ContactPage(){
+  return `
+  ${Topbar('contact')}
+  <div class="page-head">
+    <div class="wrap">
+      <div class="breadcrumb"><a onclick="nav('home')">خانه</a> / <span>تماس با ما</span></div>
+      <h1>تماس با ما</h1>
+    </div>
+  </div>
+  <section class="section">
+    <div class="wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+      <div>
+        <h3 style="font-size:17px;margin-bottom:18px">پیام خود را برای ما ارسال کنید</h3>
+        <div class="form-field"><label>نام و نام خانوادگی</label><input placeholder="نام شما"></div>
+        <div class="form-field"><label>ایمیل</label><input dir="ltr" placeholder="you@email.com"></div>
+        <div class="form-field"><label>شماره تماس</label><input dir="ltr" placeholder="0912xxxxxxx"></div>
+        <div class="form-field"><label>پیام</label><textarea rows="5" placeholder="پیام خود را بنویسید..."></textarea></div>
+        <button class="btn btn-primary btn-block">ارسال پیام</button>
+      </div>
+      <div>
+        <div class="map-embed" style="height:220px"><span class="map-pin">${ic('pinBig')}</span></div>
+        <div class="detail-card" style="padding:20px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="color:var(--brand)">${ic('pin')}</span><span style="font-size:13.5px">شیراز، فرهنگ‌شهر</span></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="color:var(--brand)">${ic('phone')}</span><span style="font-size:13.5px" dir="ltr">۰۹۱۷۵۸۲۱۶۸۲</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="color:var(--brand)">${ic('clock')}</span><span style="font-size:13.5px">پاسخ‌گویی: شنبه تا پنج‌شنبه، ۸ تا ۲۰</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  ${Footer()}
+  `;
+}
+
+/* ============ PAGE: CLINIC SIGNUP ============ */
+function ClinicSignupPage(){
+  return `
+  ${Topbar('clinicSignup')}
+  <div class="page-head">
+    <div class="wrap">
+      <div class="breadcrumb"><a onclick="nav('home')">خانه</a> / <span>ثبت کلینیک</span></div>
+      <h1>ثبت‌نام کلینیک در آی رادیولوژی</h1>
+      <div class="sub">پس از تکمیل فرم، تیم ما طی ۴۸ ساعت اطلاعات شما را بررسی و تأیید می‌کند</div>
+    </div>
+  </div>
+  <div class="wrap" style="padding:40px 0 80px;max-width:760px">
+    <div class="flow-card" style="max-width:none">
+      <h2>اطلاعات پایه کلینیک</h2>
+      <div class="sub">مرحله ۱ از ۴</div>
+      <div class="form-grid">
+        <div class="form-field"><label>نام کلینیک</label><input placeholder="مثلاً کلینیک تصویربرداری پارسیان"></div>
+        <div class="form-field"><label>شهر</label><select><option>انتخاب کنید</option>${CITIES.map(c=>`<option>${c}</option>`).join('')}</select></div>
+        <div class="form-field full"><label>آدرس کامل</label><input placeholder="شهر، منطقه، خیابان، پلاک"></div>
+        <div class="form-field"><label>شماره تماس کلینیک</label><input dir="ltr" placeholder="071xxxxxxxx"></div>
+        <div class="form-field"><label>شماره مجوز فعالیت</label><input placeholder="شماره پروانه بهره‌برداری"></div>
+        <div class="form-field"><label>ایمیل مدیر سیستم</label><input dir="ltr" placeholder="admin@clinic.ir"></div>
+        <div class="form-field"><label>رمز عبور</label><input type="password" placeholder="••••••••"></div>
+      </div>
+      <div class="field-block">
+        <label class="field-label">تجهیزات موجود در کلینیک</label>
+        <div class="radio-card-row" style="grid-template-columns:repeat(3,1fr)">
+          ${['MRI','سی‌تی‌اسکن','سونوگرافی','ماموگرافی','رادیوگرافی','PET-CT'].map(t=>`<label class="radio-card"><input type="checkbox">${t}</label>`).join('')}
+        </div>
+      </div>
+      <div class="field-block">
+        <label class="field-label">بارگذاری مدارک</label>
+        <div style="border:1.5px dashed var(--line);border-radius:12px;padding:28px;text-align:center;color:var(--navy-soft);font-size:13px">
+          ${ic('upload')||ic('download')}<div style="margin-top:8px">تصویر پروانه فعالیت، لوگو و تصاویر کلینیک را اینجا بکشید و رها کنید</div>
+        </div>
+      </div>
+      <div class="flow-nav">
+        <button class="btn btn-ghost">${ic('arrowL')} انصراف</button>
+        <button class="btn btn-primary" onclick="alert('در نسخه نهایی، این فرم به پنل تأیید ادمین ارسال می‌شود.')">ارسال برای بررسی</button>
+      </div>
+    </div>
+  </div>
+  ${Footer()}
+  `;
+}
+
+/* ============ PAGE: SUPPORT ============ */
+function SupportPage(){
+  const faqs = [
+    ['چگونه می‌توانم نوبت خود را لغو کنم؟','از بخش «نوبت‌های من» در پنل کاربری، روی نوبت موردنظر و گزینه لغو کلیک کنید. لغو تا ۲۴ ساعت قبل از نوبت بدون جریمه است.'],
+    ['آیا امکان پرداخت در محل کلینیک وجود دارد؟','بله، در مرحله پرداخت می‌توانید گزینه «پرداخت در محل کلینیک» را انتخاب کنید.'],
+    ['نتایج تصویربرداری چگونه به من تحویل داده می‌شود؟','نتایج هم به صورت فیزیکی در کلینیک و هم به صورت دیجیتال در پنل کاربری شما قابل دسترسی است.'],
+  ];
+  return `
+  ${Topbar('support')}
+  <div class="page-head">
+    <div class="wrap">
+      <div class="breadcrumb"><a onclick="nav('home')">خانه</a> / <span>پشتیبانی</span></div>
+      <h1>مرکز پشتیبانی</h1>
+    </div>
+  </div>
+  <div class="wrap" style="padding:40px 0 80px;display:grid;grid-template-columns:1fr 320px;gap:32px">
+    <div>
+      <h3 style="font-size:16px;margin-bottom:16px">سوالات متداول</h3>
+      ${faqs.map(f=>`
+      <div class="detail-card">
+        <h3 style="font-size:14.5px">${f[0]}</h3>
+        <p class="body-text">${f[1]}</p>
+      </div>`).join('')}
+    </div>
+    <div>
+      <div class="detail-card" style="text-align:center">
+        <div style="width:50px;height:50px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">${ic('whatsapp')}</div>
+        <b style="font-size:14.5px">گفت‌وگوی آنلاین با کارشناس</b>
+        <p style="font-size:12.5px;color:var(--navy-soft);margin:8px 0 16px">پاسخ‌گویی فوری، ۸ تا ۲۲ همه روزه</p>
+        <button class="btn btn-primary btn-block">شروع گفت‌وگو</button>
+      </div>
+      <div class="detail-card">
+        <div style="color:var(--brand);margin-bottom:10px">${ic('ticket')}</div>
+        <b style="font-size:14.5px">ثبت تیکت پشتیبانی</b>
+        <p style="font-size:12.5px;color:var(--navy-soft);margin:8px 0 16px">برای مشکلات فنی یا شکایات رسمی</p>
+        <button class="btn btn-ghost btn-block">ثبت تیکت جدید</button>
+      </div>
+    </div>
+  </div>
+  ${Footer()}
+  `;
+}
+
+/* ============ RENDER ============ */
+function render(){
+  const app = document.getElementById('app');
+  let html = '';
+  switch(state.route){
+    case 'home': html = HomePage(); break;
+    case 'listing': html = ListingPage(); break;
+    case 'detail': html = DetailPage(); break;
+    case 'booking': html = BookingPage(); break;
+    case 'dashboard': html = DashboardPage(); break;
+    case 'about': html = AboutPage(); break;
+    case 'contact': html = ContactPage(); break;
+    case 'clinicSignup': html = ClinicSignupPage(); break;
+    case 'support': html = SupportPage(); break;
+    default: html = HomePage();
+  }
+  app.innerHTML = html;
+}
+window.nav = nav;
+render();
+</script>
+</body>
+</html>
